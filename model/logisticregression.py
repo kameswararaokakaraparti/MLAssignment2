@@ -7,9 +7,10 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score
 import pandas as pd
 from joblib import dump
+from loaddata import load_data_from_csv
 
-DATA_FILE_PATH = os.path.join("data", "heart.csv")
-MODEL_FILE_PATH = os.path.join("models", "logisticreg.pkl")
+DATA_FILE_PATH = os.path.join("data", "diabetes_health_indicators.csv")
+MODEL_FILE_PATH = os.path.join("model", "logisticreg.pkl")
 
 def build_model() -> LogisticRegression:
     return LogisticRegression(
@@ -22,7 +23,7 @@ def logisticregression():
     ## Load data from file
     df = load_data_from_csv(DATA_FILE_PATH)
 
-    # 2) Split features/target
+    # 2 Split features/target
     X = df.drop(columns=['Diabetes_binary'])
     y = df['Diabetes_binary'].astype(int)
 
@@ -30,7 +31,7 @@ def logisticregression():
         X, y, test_size=0.2, random_state=42, stratify=y
     )
 
-    pipeline = Pipeline(steps=[,
+    pipeline = Pipeline(steps=[
         ("model", build_model())
     ])
 
@@ -52,10 +53,9 @@ def logisticregression():
     if auc is not None:
         print(f"AUC: {auc:.4f}")
 
-    # 6) Persist
     os.makedirs(os.path.dirname(MODEL_FILE_PATH), exist_ok=True)
     dump(pipeline, MODEL_FILE_PATH)
-    print(f"Saved Logistic Regression pipeline to {MODEL_FILE_PATH}")
+    print(f"Saved to {MODEL_FILE_PATH}")
 
 if __name__ == "__main__":
     try:

@@ -5,9 +5,8 @@ def load_data_from_csv(
     file_path: str,
 ) -> pd.DataFrame:
 
-    df = pd.read_csv(path)
+    df = pd.read_csv(file_path)
 
-    df = df.drop(columns=['Sex', 'AnyHealthcare', 'NoDocbcCost', 'MentHlth', 'Stroke'], 
-    axis=1).values
+    df = df.drop(columns=['Sex', 'AnyHealthcare', 'NoDocbcCost', 'MentHlth', 'Stroke'])
 
     return df

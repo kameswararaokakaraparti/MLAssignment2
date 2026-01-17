@@ -2,7 +2,6 @@
 import streamlit as st
 import pandas as pd
 
-
 #set title
 st.set_page_config(
     page_title="ML Assignment2 with multi model selection",
