@@ -38,7 +38,7 @@ def plot_confusion_matrix(y_true, y_pred):
 
 def plot_roc(y_true, y_proba):
     fig, ax = plt.subplots(figsize=(5, 4))
-    RocCurveDisplay.from_predictions(y_true, y_proba, ax=ax)
+    RocCurveDisplay.from_predictions(y_true, y_proba, ax=ax, curve_kwargs={'color': 'green'})
     ax.set_title('')
     return fig
 
