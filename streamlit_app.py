@@ -20,7 +20,8 @@ uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
 MODEL_LIST = {
     "Logistic Regression": "model/logisticreg.pkl",
     "Decision Tree Classifier": "model/decissomtree.pkl",
-    "Naive Bayes Classifier": "model/naivebayes.pkl"
+    "Naive Bayes Classifier": "model/naivebayes.pkl",
+    "K-Nearest Neighbor Classifier": "model/knn.pkl"
 }
 
 @st.cache_resource
@@ -154,6 +155,11 @@ if uploaded_file is not None:
              render_results(model_choice, y, y_pred, y_proba)
 
         if model_choice == "Naive Bayes Classifier":
+             y_pred = pipe.predict(X)
+             y_proba = predict_probabilities(pipe, X)
+             render_results(model_choice, y, y_pred, y_proba)
+
+        if model_choice == "K-Nearest Neighbor Classifier":
              y_pred = pipe.predict(X)
              y_proba = predict_probabilities(pipe, X)
              render_results(model_choice, y, y_pred, y_proba)
