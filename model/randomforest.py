@@ -14,17 +14,16 @@ MODEL_FILE_PATH = os.path.join("model", "randomforest.pkl")
 
 def build_model() -> RandomForestClassifier:
     return RandomForestClassifier(
-        n_estimators=300,
-        max_depth=None,
-        min_samples_split=2,
-        min_samples_leaf=1,
-        bootstrap=True,
+        n_estimators=100,
+        max_depth=10,
+        min_samples_leaf=5,
+        max_features="sqrt",
         class_weight="balanced",
-        random_state=42,
         n_jobs=-1,
+        random_state=42
     )
 
-def naivebayes():
+def randomforest():
     ## Load data from file
     df = load_data_from_csv(DATA_FILE_PATH)
 
@@ -33,7 +32,7 @@ def naivebayes():
     y = df['Diabetes_binary'].astype(int)
 
     X_train, X_val, y_train, y_val = train_test_split(
-        X, y, test_size=0.2, random_state=42, stratify=y
+         X, y, test_size=0.2, random_state=42, stratify=y
     )
 
     pipeline = Pipeline(steps=[
@@ -59,12 +58,12 @@ def naivebayes():
         print(f"AUC: {auc:.4f}")
 
     os.makedirs(os.path.dirname(MODEL_FILE_PATH), exist_ok=True)
-    dump(pipeline, MODEL_FILE_PATH)
+    dump(pipeline, MODEL_FILE_PATH, compress=3)
     print(f"Saved to {MODEL_FILE_PATH}")
 
 if __name__ == "__main__":
     try:
-        naivebayes()
+        randomforest()
     except Exception as e:
         print(f"[ERROR] {e}")
         sys.exit(1)
