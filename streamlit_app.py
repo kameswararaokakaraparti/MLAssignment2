@@ -128,13 +128,9 @@ import requests
 
 TEST_DATA_URL = "https://github.com/kameswararaokakaraparti/MLAssignment2/tree/main/data/diabetes_health_indicators_test.csv"
 
-@st.cache_data
-def load_csv_from_github(url):
-    response = requests.get(url)
-    response.raise_for_status()
-    return response.content
+df = pd.read_csv(TEST_DATA_URL)
 
-csv_bytes = load_csv_from_github(TEST_DATA_URL)
+csv_bytes = df.to_csv(index=False).encode("utf-8")
 
 st.caption("Click to download Test data")
 
